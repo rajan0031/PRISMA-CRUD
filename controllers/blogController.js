@@ -4,8 +4,13 @@ import { createNewBlog, fetchAllBlogs, fetchBlogById, updateBlogById, deleteBlog
 import { ErrorResponse } from '../helpers/ErrorResponse.js';
 import { tryCatchHandler } from '../helpers/ErrorHandler.js';
 
-
-// start of the creating the blog 
+/**
+ *createBlog-  it calls the createNewBlog in blogService and create a new blog 
+ *
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @returns {void} Sends the created blog , and successfull message
+ */
 
 const createBlog = tryCatchHandler(async (req, res) => {
 
@@ -19,6 +24,14 @@ const createBlog = tryCatchHandler(async (req, res) => {
 
 });
 
+/**
+ *getAllBlogs-  it calls the fetchAllBlogs in blogService and fetch all blogs 
+ *
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @returns {void} Sends the get all the blogs from the database 
+ */
+
 const getAllBlogs = tryCatchHandler(async (req, res) => {
 
 
@@ -28,12 +41,13 @@ const getAllBlogs = tryCatchHandler(async (req, res) => {
 
 });
 
-
-// end of the  of the creating the blog 
-
-
-
-// start of the getBlogById starts here 
+/**
+ *getBlogById-  it calls the fetchBlogById in blogService and get a particular blog from the database
+ *
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @returns {void} Sends the retrive the particular blog from the database 
+ */
 
 const getBlogById = tryCatchHandler(async (req, res) => {
 
@@ -54,13 +68,13 @@ const getBlogById = tryCatchHandler(async (req, res) => {
 
 });
 
-
-// end  of the getBlogById starts here 
-
-
-
-
-// start  of the  of the updateBlog starts here 
+/**
+ *updateBlog-  it calls the updateBlogById in blogService and update a blog 
+ *
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @returns {void} Sends the current updated blog in json object
+ */
 
 export const updateBlog = tryCatchHandler(async (req, res) => {
     const { title, content, image, tags } = req.body;
@@ -70,17 +84,13 @@ export const updateBlog = tryCatchHandler(async (req, res) => {
     res.status(200).json({ message: "Blog updated successfully", blog });
 });
 
-
-
-// end   of the  of the updateBlog starts here 
-
-
-
-// strat of teh blog deleteion  starts from here 
-
-
-
-
+/**
+ *deleteBlog- it delete the blog by its id 
+ *
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @returns {void} Sends the message of the successfull deletion of the current blog 
+ */
 
 const deleteBlog = tryCatchHandler(async (req, res) => {
 
@@ -91,12 +101,8 @@ const deleteBlog = tryCatchHandler(async (req, res) => {
 
 });
 
-
-// end of teh  of teh blog deleteion  starts from here 
-
-
-
-
-// exporting all the functions from here and i will use them in the routes file cod e
+/**
+ * Exports all the blog-related functions.
+ */
 
 export { createBlog, getAllBlogs, getBlogById, updateBlogById, deleteBlog };

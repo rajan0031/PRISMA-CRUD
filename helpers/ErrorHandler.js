@@ -1,25 +1,35 @@
 import { ErrorResponse } from "./ErrorResponse.js";
 
+/**
+ *errorHandler- Global error handler middleware for handling various types of errors.
+ *
+ * @param {object} err - The error object containing details of the error.
+ * @param {object} req - The HTTP request object.
+ * @param {object} res - The HTTP response object.
+ * @param {function} next - The next middleware function.
+ * @returns {void} Sends a JSON response with the appropriate error message and status code.
+ */
+
 export const errorHandler = (err, req, res, next) => {
     let error = { ...err };
     error.message = err.message;
 
-    // yaha hum error ko console kar rahe hai 
+
     console.error(err);
 
-    // ye mongo error ke liyea hai like object Id issue 
+
     if (err.name === "CastError") {
         const message = `Resource not found with ID: ${err.value}`;
         error = new ErrorResponse(message, 404);
     }
 
-    // Handle duplicate key errors in MongoDB
+
     if (err.code === 11000) {
         const message = "Duplicate field value entered";
         error = new ErrorResponse(message, 400);
     }
 
-    // Handle validation errors
+
     if (err.name === "ValidationError") {
         const message = Object.values(err.errors).map(val => val.message).join(", ");
         error = new ErrorResponse(message, 400);
@@ -33,8 +43,12 @@ export const errorHandler = (err, req, res, next) => {
     });
 };
 
-
-// start of a highorder function tryCatch
+/**
+ *tryCatchHandler-this is the high order function for handling all the try catch from the controller and the services 
+ *
+ * @param {function} fn - this is the callback function we pass from the controller and the service folders and ... from other files and folders if needed 
+ 
+ */
 
 export const tryCatchHandler = (fn) => {
     return async (req, res, next) => {
@@ -49,4 +63,3 @@ export const tryCatchHandler = (fn) => {
 
 
 
-// end of a high order functioon tryCatch

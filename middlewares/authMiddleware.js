@@ -1,5 +1,14 @@
 import jwt from 'jsonwebtoken';
 
+/**
+ * authMiddleware- this is the authentication middleware , it will ensures that the user is loggedin or not. 
+ *
+ * @param {object} req - The HTTP request object
+ * @param {object} res - The HTTP response object
+ * @param {function} next - The next middleare function for error handling
+ * 
+ */
+
 const authMiddleware = (req, res, next) => {
     const token = req.header("Authorization");
 
@@ -12,20 +21,6 @@ const authMiddleware = (req, res, next) => {
         console.log("this is the decoded message ", decoded);
         req.user = decoded;
         console.log("this is the req.user", req.user);
-
-        // this is the decoded message  {
-        //     id: '679ba034b6cde421f17a1d78',
-        //     email: 'test@example.com',
-        //     iat: 1738259357,
-        //     exp: 1738262957
-        //   }
-        //   this is the req.user {
-        //     id: '679ba034b6cde421f17a1d78',
-        //     email: 'test@example.com',
-        //     iat: 1738259357,
-        //     exp: 1738262957
-        //   }
-
         next();
     } catch (error) {
         res.status(400).json({ message: "Invalid token." });

@@ -23,7 +23,7 @@ app.use(cors());
 //     serverSelectionTimeoutMS: 10000,
 //     socketTimeoutMS: 45000,
 // })
-//     .then(() => console.log("🔥 Database connected successfully!"))
+//     .then(() => console.log(" Database connected successfully!"))
 //     .catch((err) => console.error("Error connecting to database:", err));
 
 // database connection start 
@@ -42,5 +42,5 @@ app.use(errorHandler);
 
 // Server Setup
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
 
