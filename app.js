@@ -40,7 +40,7 @@ app.use(authMiddleware);
 // Global Error Handler (Last Middleware)
 app.use(errorHandler);
 
-// Server Setup
+// Server Setup 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-
+ 

@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String   @id @default(auto()) @map("_id") @db.ObjectId // Use @db.ObjectId here
+  name     String
+  email    String   @unique
+  password String
+  blogs    Blog[]   @relation("UserBlogs") // Define reverse relation to Blog model
+}
+
+
+model Blog {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId // Use @db.ObjectId for MongoDB
+  title     String
+  content   String
+  image     String?  // Nullable field
+  tags      String[] @default([]) // Array of strings
+  author    User     @relation("UserBlogs", fields: [authorId], references: [id])
+  authorId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("blogs") // Optional, maps this model to the "blogs" collection in MongoDB
+}
